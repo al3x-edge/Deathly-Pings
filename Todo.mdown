@@ -1,0 +1,5 @@
+# Goals
+1. At certain intervals, move through the subnets / IP ranges scanning available services.
+2. Create a front-end interface for the teams to view their current scoring status.
+2. Create a back-end interface for the administration staff to configure the application.
+3. (Possible) Provide a way to generate traffic of all protocols on the networks to simulate traffic.
