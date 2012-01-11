@@ -3,3 +3,4 @@
 2. Create a front-end interface for the teams to view their current scoring status.
 2. Create a back-end interface for the administration staff to configure the application.
 3. (Possible) Provide a way to generate traffic of all protocols on the networks to simulate traffic.
+4. Ability for "red" teams to be able to register exploits and poll their status to remove points.
