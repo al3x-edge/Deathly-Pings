@@ -1,31 +1,38 @@
 daemon = require 'daemon'
 fs = require 'fs'
+client = require("redis").createClient();
 	
 # Setup initial daemon directories if needed
-fs.mkdir __dirname + '/logs'
+# Log if it was unable to create the directory.
+fs.mkdir __dirname + '/logs', (err) -> 
+  console.log err
 
 # Globals
 after = (ms, cb) -> setTimeout cb, ms
 every = (ms, cb) -> setInterval cb, ms
 
 class ServiceDaemon
-  services = []
   teams = []
-  
-  constructor: () ->
+  services = []
+  constructor: (@pollTime) ->
   run: () ->
-    every 1000, () ->
-	    console.log 'Hello World'
+    every @pollTime, () ->
+	    console.log 'Running'
   
 class Service
-  constructor: (@name,@port) ->
+  constructor: (@name,@port,@team_number) ->
+  report: (success) ->
+    if success
+      client.hincrby "team#{@team_number}::#{@name}", "success", 1
+    else
+      client.hincrby "team#{@team_number}::#{@name}", "failure", 1
 
 class Team
   constructor: (@name, @number) ->
   score: ->
     console.log "Scoring"
-  findAllEntries: ->
-    console.log "Looking in Redis for all entries"
+  findAllServices: ->
+    services = client.smembers();
     
 sd = new ServiceDaemon
 sd.run()
