@@ -1,3 +1,6 @@
 # Deathly Pings Scoring Machine
 
 A scoring machine for security compititions built on Node.js & Matador MVC Framework.
+
+# Daemons
+Daemons will be used in order to pull the services to poll as well as update their results in redis.
